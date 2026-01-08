@@ -30,7 +30,7 @@ fastify.get("/",async  (req,replay)=>{
 
 const start = async ()=>{
     const  port = process.env.port || 3000
-    fastify.listen({port:Number(port)})
+    fastify.listen({port:Number(port), host:'0.0.0.0'})
     fastify.log.info(`Server listening on port ${port}`)
 }
 
