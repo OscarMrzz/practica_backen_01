@@ -1,5 +1,6 @@
 import Fastify from 'fastify'
 import fastifyPostgres from '@fastify/postgres'
+import { productosRouter } from './app/productos/productos.router.js'
 import  'dotenv'
 
 
@@ -26,6 +27,7 @@ fastify.get("/",async  (req,replay)=>{
 
 }
 )
+fastify.register(productosRouter,{prefix:"/api/productos"})
 
 
 const start = async ()=>{
