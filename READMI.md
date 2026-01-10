@@ -17,3 +17,7 @@ pm2 stop backend
 
 Levantarlo de nuevo:
 pm2 start backend
+
+
+Reiniciar:
+pm2 reload backend
