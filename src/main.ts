@@ -18,10 +18,8 @@ fastify.get("/", async (req, replay) => {
   try {
     const query = "SELECT current_timestamp;";
     const { rows } = await fastify.pg.query(query);
-    if (rows.length === 0) {
-      replay.send({conexionBackend:"OK",conexionDB:"error"});
-    }
-      replay.send({conexionBackend:"OK",conexionDB:"OK"});
+
+      replay.send({conexionBackend:"OK",conexionDB:"OK",timestamp:rows[0].current_timestamp});
   } catch (error) {
     fastify.log.error(error);
     replay.status(500).send({conexionBackend:"OK",conexionDB:"error",error: (error as any)?.message || String(error)});
