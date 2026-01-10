@@ -1,3 +1,4 @@
+import "@fastify/postgres"
 import type { FastifyRequest, FastifyReply} from 'fastify';
 import type { productoModel } from '@/app/productos/productos.model.js';
 
@@ -8,7 +9,7 @@ export async function getAllProductos(req:FastifyRequest,replay:FastifyReply){
     try{
 
         const query ="SELECT * FROM productos"
-        const {rows}= await req.server.pg.query(query)
+        const {rows}= await req.server.pg.query<productoModel>(query)
         replay.send(rows)
     }
     catch(error){
