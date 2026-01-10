@@ -24,7 +24,7 @@ fastify.get("/", async (req, replay) => {
       replay.send({conexionBackend:"OK",conexionDB:"OK"});
   } catch (error) {
     fastify.log.error(error);
-    replay.status(500).send({conexionBackend:"OK",conexionDB:"error"});
+    replay.status(500).send({conexionBackend:"OK",conexionDB:"error",error: (error as any)?.message || String(error)});
   }
 });
 
