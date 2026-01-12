@@ -19,6 +19,7 @@ jobs:
       DB_HOST: ${{ secrets.DB_HOST }}
       DB_PORT: ${{ secrets.DB_PORT }}
       DB_DATABASE: ${{ secrets.DB_DATABASE }}
+      DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
     
  
 
