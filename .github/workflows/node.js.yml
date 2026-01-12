@@ -14,13 +14,13 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      db_user: ${{ secrets.db_user }}
-      db_password: ${{ secrets.db_password }}
-      db_host: ${{ secrets.db_host }}
-      db_port: ${{ secrets.db_port }}
-      db_name: ${{ secrets.db_name }}
-      db_connection_string: ${{ secrets.db_connection_string }}
-      port: ${{ secrets.port }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
+      PORT: ${{ secrets.PORT }}
 
     strategy:
       matrix:

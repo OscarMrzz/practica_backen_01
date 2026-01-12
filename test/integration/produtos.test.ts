@@ -1,3 +1,6 @@
+//Ignorar el error de typescript
+// @ts-ignore
+
 import { describe, test, expect, beforeAll, afterAll } from "vitest";
 import type { productoModel } from "@/app/productos/productos.model.js";
 import { MiServidor } from "@/server.js";
@@ -7,7 +10,7 @@ import type { FastifyInstance } from "fastify";
 
 beforeAll(async () => {
     const start = async (servidor: FastifyInstance) => {
-      const port =3003;
+      const port = process.env.PORT || 3003;
       servidor.listen({ port: Number(port), host: "0.0.0.0" });
       servidor.log.info(`Server listening on port ${port}`);
     };

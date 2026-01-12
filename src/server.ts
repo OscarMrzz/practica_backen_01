@@ -8,9 +8,9 @@ export function MiServidor(){
 
 const fastify = Fastify({ logger: true });
 
-const dbConnectionString = process.env.db_connection_string || "";
+const dbConnectionString = process.env.DB_CONNECTION_STRING || "";
 if (!dbConnectionString) {
-  fastify.log.error("db_connection_string is not defined");
+  fastify.log.error("DB_CONNECTION_STRING is not defined");
 }
 fastify.register(fastifyPostgres, {
   connectionString: dbConnectionString,
