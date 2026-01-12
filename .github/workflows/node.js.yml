@@ -28,6 +28,16 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     # mostrar las variables de entorno
+    steps:
+    - name: Show environment variables
+      run: |
+        echo "db_user: $db_user"
+        echo "db_password: $db_password"
+        echo "db_host: $db_host"
+        echo "db_port: $db_port"
+        echo "db_name: $db_name"
+        echo "db_connection_string: $db_connection_string"
+        echo "port: $port"
 
 
 
