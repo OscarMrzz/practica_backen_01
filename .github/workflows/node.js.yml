@@ -23,8 +23,11 @@ jobs:
         node-version: [22.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    
+
   
+  steps:
+    - name: Mostrar variables de entorno
+      run:  echo "DB_USER: $DB_USER"
   
 
 
