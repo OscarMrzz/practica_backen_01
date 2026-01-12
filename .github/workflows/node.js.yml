@@ -13,6 +13,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      DB_USER: ${{ secrets.DB_USER }}
+    
  
 
     strategy:
@@ -20,7 +23,7 @@ jobs:
         node-version: [22.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-
+    
   
   
 
