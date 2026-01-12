@@ -6,8 +6,8 @@ import { createProducto, deleteByIdProducto, getAllProductos, getByIdProducto, u
 
 export async function productosRouter(fastify:FastifyInstance){
     fastify.get("/",getAllProductos)
-    fastify.get("/:idProducto",getByIdProducto)
+    fastify.get("/:id_producto",getByIdProducto)
     fastify.post("/",createProducto)
-    fastify.put("/:idProducto",updateByIdProducto)
-    fastify.delete("/:idProducto",deleteByIdProducto)
+    fastify.put("/:id_producto",updateByIdProducto)
+    fastify.delete("/:id_producto",deleteByIdProducto)
 }
