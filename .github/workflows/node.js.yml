@@ -30,7 +30,7 @@ jobs:
     # mostrar las variables de entorno
     steps:
     - name: Mostrar variables de entorno
-      run:  echo "db_user: $db_user"
+  
   
 
 
