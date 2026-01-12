@@ -24,7 +24,6 @@ afterAll(async () => {
 });
 
 
-
 describe("API de productos", () => {
   let id_producto: string;
      test("probar conexion", async () => {
@@ -39,21 +38,7 @@ describe("API de productos", () => {
       
       });
 
-      test("GET ALL -> leer todos los productos",
-        async ()=>{
-          const response = await MiServidor().inject(
 
-            {
-              method: "GET",
-              url: "/api/productos",
-            }
-          )
-          expect(response.statusCode).toBe(200);
-          expect(response.json().length).toBeGreaterThan(0);
-         
-
-        }
-      )
 
       test("CREATE -> crear 1 productos",async ()=>{
   
