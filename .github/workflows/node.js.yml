@@ -13,23 +13,14 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    env:
-      DB_USER: ${{ secrets.DB_USER }}
-      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-      DB_HOST: ${{ secrets.DB_HOST }}
-      DB_PORT: ${{ secrets.DB_PORT }}
-      DB_NAME: ${{ secrets.DB_NAME }}
-      DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
-      PORT: ${{ secrets.PORT }}
+ 
 
     strategy:
       matrix:
         node-version: [22.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    # mostrar las variables de entorno
-    steps:
-    - name: Mostrar variables de entorno
+
   
   
 
