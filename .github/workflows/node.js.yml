@@ -59,7 +59,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       
-      - run: npm ci
+      - name: Instalar dependencias
+        run: npm ci
+      - name: Hacer el build
+        run: npm run build --if-present
       - name: Esperar a Postgres
         run: |
           for i in {1..10}; do
@@ -72,5 +75,5 @@ jobs:
       - name: Inicializar Base de Datos
         run: |
           PGPASSWORD=password_test psql -h localhost -U user_test -d db_test -f ./database/init.sql
-  
-      - run: npm test
+      - name: Ejecutar tests
+        run: npm test
