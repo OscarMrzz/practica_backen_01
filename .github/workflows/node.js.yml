@@ -13,15 +13,29 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+# Levantamos el servidor de la base de datos de Posgresql
+    services:
+      db:
+        image: postgres:15
+        env:
+            POSTGRES_USER: "user_test"
+            POSTGRES_PASSWORD: "password_test"
+            POSTGRES_DB: "db_test"
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U user_test -d db_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     env:
-      DB_USER: ${{ secrets.DB_USER }}
-      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-      DB_HOST: ${{ secrets.DB_HOST }}
-      DB_PORT: ${{ secrets.DB_PORT }}
-      DB_DATABASE: ${{ secrets.DB_DATABASE }}
-      DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
+      DB_USER: user_test
+      DB_PASSWORD: password_test
+      DB_NAME: db_test
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_CONNECTION_STRING: postgresql://user_test:password_test@localhost:5432/db_test
     
- 
 
     strategy:
       matrix:
@@ -32,7 +46,10 @@ jobs:
 
     steps:
       - name: Mostrar variables de entorno
-        run: "echo DB_USER: ${{ env.DB_USER }}"
+        run: |
+          echo "DB_USER: $DB_USER"
+          echo "DB_HOST: $DB_HOST"
+          echo "DB_CONNECTION_STRING: $DB_CONNECTION_STRING"
     
 
       - uses: actions/checkout@v4
@@ -43,6 +60,17 @@ jobs:
           cache: 'npm'
       
       - run: npm ci
-      - run: npm run build --if-present
+      - name: Esperar a Postgres
+        run: |
+          for i in {1..10}; do
+            pg_isready -h localhost -p 5432 -U user_test && break
+            sleep 2
+          done
+      - name: Crear extensión pgcrypto
+        run: |
+          PGPASSWORD=password_test psql -h localhost -U user_test -d db_test -c 'CREATE EXTENSION IF NOT EXISTS "pgcrypto";'
+      - name: Inicializar Base de Datos
+        run: |
+          PGPASSWORD=password_test psql -h localhost -U user_test -d db_test -f ./database/init.sql
+  
       - run: npm test
-
