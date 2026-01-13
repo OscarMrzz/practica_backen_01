@@ -19,8 +19,19 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
+            # 1. Cargamos el entorno de fnm para que reconozca npm y pm2
+            export PATH="/home/osscarodriguez/.local/share/fnm:$PATH"
+            eval "$(fnm env --use-on-cd)"
+            
+            # 2. Vamos a tu carpeta
             cd /home/osscarodriguez/practica_backen_01
+            
+            # 3. Actualizamos código
             git pull origin main
+            
+            # 4. Instalamos y reiniciamos
             npm install
+            # Compilamos
             npm run build
+            # Reiniciamos el proceso
             pm2 restart backend
