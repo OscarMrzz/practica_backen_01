@@ -1,6 +1,6 @@
 import "@fastify/postgres";
 import type { FastifyRequest, FastifyReply } from "fastify";
-import type { productoModel } from "@/app/productos/productos.model.js";
+import type { productoInterface } from "@/app/productos/productos.interface.js";
 
 export async function getAllProductos(
   req: FastifyRequest,
@@ -8,7 +8,7 @@ export async function getAllProductos(
 ) {
   try {
     const query = "SELECT * FROM productos";
-    const { rows } = await req.server.pg.query<productoModel>(query);
+    const { rows } = await req.server.pg.query<productoInterface>(query);
     replay.send(rows);
   } catch (error) {
     replay.status(500).send({ error: "Error al obtener productos" });
@@ -35,7 +35,7 @@ export async function getByIdProducto(
 
 export async function createProducto(  req: FastifyRequest,replay: FastifyReply) {
   try {
-    const producto: Omit<productoModel, "id_producto" | "created_at_producto"> = req.body as Omit<productoModel, "id_producto" | "created_at_producto">;
+    const producto: Omit<productoInterface, "id_producto" | "created_at_producto"> = req.body as Omit<productoInterface, "id_producto" | "created_at_producto">;
     const query =
       "INSERT INTO productos (nombre_producto,precio_compra_producto,precio_venta_producto) VALUES ($1,$2,$3) RETURNING *";
     const { rows } = await req.server.pg.query(query, [
@@ -57,7 +57,7 @@ export async function updateByIdProducto(
 ) {
   try {
     const { id_producto } = req.params as { id_producto: string };
-    const producto: Omit<productoModel, "id_producto" | "created_at_producto"> = req.body as Omit<productoModel, "id_producto" | "created_at_producto">;
+    const producto: Omit<productoInterface, "id_producto" | "created_at_producto"> = req.body as Omit<productoInterface, "id_producto" | "created_at_producto">;
     const query =
       "UPDATE productos SET nombre_producto=$1,precio_compra_producto=$2,precio_venta_producto=$3 WHERE id_producto=$4 RETURNING *";
     const { rows } = await req.server.pg.query(query, [
