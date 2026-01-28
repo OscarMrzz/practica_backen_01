@@ -19,7 +19,7 @@ export default class ProductosController {
 
             
 
-            const data = await ProductosModel.getAll(req.server, offset, limit);
+            const data = await ProductosModel.getAll(req.server, offset, limit,page);
             replay.send(data);
         } catch (error) {
             replay.status(500).send({ error: "Error al obtener productos" });

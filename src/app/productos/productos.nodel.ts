@@ -4,11 +4,11 @@ import type { productoInterface, responseInterface } from "./productos.interface
 
 export class ProductosModel {
    
-  static  async  getAll(req:FastifyInstance, offset: number, limit: number | null) {
+  static  async  getAll(req:FastifyInstance, offset: number, limit: number | null, page:number =1) {
         let query = "SELECT * FROM productos";
         const queryCount = "SELECT COUNT(*) FROM productos";
         let total = 0;
-        let page = offset+1;
+       
    
       
   
