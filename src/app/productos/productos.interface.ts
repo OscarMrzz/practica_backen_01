@@ -6,3 +6,15 @@ export interface productoInterface{
    precio_venta_producto:number
    
 }
+
+export interface productoQueryInterface{
+    page: number,
+    limit: number
+}
+
+export interface responseInterface{
+    page:number,
+    limit:number | null,
+    total:number,
+    data:productoInterface[]
+}
