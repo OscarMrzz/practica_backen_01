@@ -2,13 +2,14 @@
 // @ts-ignore
 
 import { describe, test, expect, beforeAll, afterAll } from "vitest";
-import type { productoModel } from "@/app/productos/productos.model.js";
+
 import { MiServidor } from "@/server.js";
 import type { FastifyInstance } from "fastify";
 
 
 
 beforeAll(async () => {
+  console.log("Iniciando servidor...");
     const start = async (servidor: FastifyInstance) => {
       const port = process.env.PORT || 3003;
       servidor.listen({ port: Number(port), host: "0.0.0.0" });
@@ -53,7 +54,11 @@ describe("API de productos", () => {
             }
           }
         )
-        id_producto = response.json().id_producto;
+        const dataSinLimpiar =response.json();
+        const data =dataSinLimpiar[0];
+        id_producto = data.id_producto;
+
+      
         expect(response.statusCode).toBe(201);
    
       })
@@ -65,8 +70,11 @@ describe("API de productos", () => {
             url: `/api/productos/${id_producto}`,
           }
         )
+        const dataSinLimpiar = response.json();
+        const data = dataSinLimpiar[0];
+        const id_buscado =data.id_producto
         expect(response.statusCode).toBe(200);
-        expect(response.json().id_producto).toBe(id_producto);
+        expect(id_producto).toBe(id_buscado);
       })
 
       test("UPDATE BY ID -> actualizar 1 producto por id",async ()=>{
@@ -81,8 +89,13 @@ describe("API de productos", () => {
             }
           }
         )
+         const dataSinLimpiar = response.json();
+        const data = dataSinLimpiar[0];
+        const id_editado =data.id_producto
+
+
         expect(response.statusCode).toBe(200);
-        expect(response.json().id_producto).toBe(id_producto);
+        expect(id_producto).toBe(id_editado);
       })
       test("DELETE BY ID -> eliminar 1 producto por id",async ()=>{
         const response = await MiServidor().inject(
@@ -91,8 +104,11 @@ describe("API de productos", () => {
             url: `/api/productos/${id_producto}`,
           }
         )
+         const dataSinLimpiar = response.json();
+        const data = dataSinLimpiar[0];
+        const id_eliminado =data.id_producto
         expect(response.statusCode).toBe(200);
-        expect(response.json().id_producto).toBe(id_producto)
+        expect(id_producto).toBe(id_eliminado)
         
       })
 
