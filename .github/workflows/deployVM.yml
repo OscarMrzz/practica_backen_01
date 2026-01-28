@@ -33,5 +33,6 @@ jobs:
             npm install
             # Compilamos
             npm run build
-            # Reiniciamos el proceso
-            pm2 restart backend
+            # Reiniciamos o arrancamos el proceso
+            pm2 delete backend || true
+            pm2 start dist/main.js --name "backend"
